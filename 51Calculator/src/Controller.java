@@ -50,19 +50,20 @@ public class Controller {
 
     public void bmiCaculator() {
         System.out.println("----- BMI Calculator -----");
-        double weight = Validation.checkDouble("Enter Weight(kg):", 0, Double.POSITIVE_INFINITY);
-        double height = Validation.checkDouble("Enter Height(cm)):", 0, Double.POSITIVE_INFINITY) / 100; //change cm -->m
+        double weight = Validation.checkDouble("Enter Weight(kg):", 1, Double.POSITIVE_INFINITY);
+        double height = Validation.checkDouble("Enter Height(cm)):", 1, Double.POSITIVE_INFINITY) / 100; //change cm -->m
         double bmi = weight / (height * height);
+        System.out.println("BMI Number: "+bmi);
         if (bmi < 19) {
-            System.out.print("Under-standard.");
-        } else if (bmi >= 19 && bmi < 25) {
-            System.out.print(" Standard.");
-        } else if (bmi >= 25 && bmi < 30) {
-            System.out.print(" Overweight.");
-        } else if (bmi >= 30 && bmi < 40) {
-            System.out.print("Fat - should lose weight.");
+            System.out.println("BMI Status: Under-standard.");
+        } else if (bmi< 25) {
+            System.out.println("BMI Status: Standard.");
+        } else if (bmi< 30) {
+            System.out.println("BMI Status: Overweight.");
+        } else if (bmi < 40) {
+            System.out.println("BMI Status:Fat - should lose weight.");
         } else {
-            System.out.print("Very fat - should lose weight immediately.");
+            System.out.print("BMI Status:Very fat - should lose weight immediately.");
         }
     }
 
