@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Main;
-import java.util.List;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -14,6 +14,7 @@ import java.util.Scanner;
  * @author dinhh
  */
 public class LoginSystem {
+
     private Locale locate;
     private ResourceBundle rb;
     private EBank eBank = new EBank(rb);
@@ -45,13 +46,33 @@ public class LoginSystem {
             }
         }
     }
-    
-    public void changeLanguage(int choice){
-        if(choice==1){
+
+    public String inputCaptcha() {
+        Scanner scanner = new Scanner(System.in);
+        String inputCapcha;
+
+        while (true) {
+            String captcha = eBank.generateCaptcha();
+            System.out.print("Captcha: " + captcha+"\t");
+            System.out.print(rb.getString("enterCaptcha"));
+            inputCapcha = scanner.nextLine();
+            if (inputCapcha.isEmpty()) {
+                System.err.println(rb.getString("emptyCaptcha"));
+            } else if (captcha.contains(inputCapcha)) {
+                return rb.getString("loginSuccess");
+            } else {
+                System.err.println(rb.getString("errCaptcha"));
+            }
+        }
+
+    }
+
+    public void changeLanguage(int choice) {
+        if (choice == 1) {
             locate = new Locale("vi");
             eBank.setLocale(locate);
             this.rb = ResourceBundle.getBundle("language/" + locate);
-        }else if(choice == 2){
+        } else if (choice == 2) {
             locate = new Locale("en");
             eBank.setLocale(locate);
             this.rb = ResourceBundle.getBundle("language/" + locate);
@@ -61,27 +82,14 @@ public class LoginSystem {
     public void login() {
         Scanner scanner = new Scanner(System.in);
         EBank eBank = new EBank(rb);
-    //    boolean checkC = false;
 
         while (true) {
             String acc = inputAccount();
             String pass = inputPassword();
-            while (true) {
-                String captcha = eBank.generateCaptcha();
-                System.out.println("Captcha: " + captcha);
-                System.out.print(rb.getString("enterCaptcha"));
-                String inputCaptha = scanner.nextLine();
-                if (eBank.checkCaptcha(captcha, inputCaptha) == null) {
-                  //  checkC = true;
-                    break;
-                }
-                System.err.println(rb.getString("errCaptcha"));
-            }
-//            if (checkC) {
-                System.out.print(rb.getString("loginSuccess"));
-                System.out.println("");
-                return;
-//            }
+            String c = inputCaptcha();
+            System.out.println("");
+            return;
+
         }
     }
 }

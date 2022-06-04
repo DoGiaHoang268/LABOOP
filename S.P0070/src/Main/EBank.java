@@ -5,6 +5,7 @@
  */
 package Main;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -15,19 +16,20 @@ import java.util.regex.Pattern;
  * @author dinhh
  */
 public class EBank {
-     private ResourceBundle rb;
 
-     public EBank() {
+    private ResourceBundle rb;
+
+    public EBank() {
     }
+
     public EBank(ResourceBundle rb) {
         this.rb = rb;
     }
-    
+
     //set ngôn ngữ sẽ đucợ sử dụng
     public void setLocale(Locale locale) {
         rb = ResourceBundle.getBundle("Language/" + locale);
     }
-
 
     public String checkAccount(String acc) {
         Pattern p = Pattern.compile("^[0-9]{10}$");
@@ -42,15 +44,11 @@ public class EBank {
     }
 
     public String checkPassword(String pass) {
-        Pattern p = Pattern.compile("^[0-9A-Za-z]{8,31}$");
-        Pattern pDigit = Pattern.compile("^[0-9A-Za-z]*[0-9]+[0-9A-Za-z]*$");
-        Pattern pLetter = Pattern.compile("^[0-9A-Za-z]*[A-Za-z]+[0-9A-Za-z]*$");
-        
-        if(pass.isEmpty()){
+        String regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*).{8,31}$";
+        if (pass.isEmpty()) {
             return rb.getString("errPasswordEmpty");
         }
-        if (p.matcher(pass).find() && pDigit.matcher(pass).find()
-                && pLetter.matcher(pass).find()) {
+        if (pass.matches(regex)) {
             return null;
         } else {
             return rb.getString("errInputPassword");
@@ -68,11 +66,5 @@ public class EBank {
         return captcha;
     }
 
-    public String checkCaptcha(String captcha, String inputCaptcha) {
-        if (inputCaptcha.contains(captcha) && inputCaptcha.length() == captcha.length()) {
-            return null;
-        } else {
-            return rb.getString("errCaptcha");
-        }
-    }
+    
 }
