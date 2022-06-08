@@ -24,48 +24,60 @@ public class Validation {
         }
     }
 
-    public int checkInt(String mess, int min, int max) {
-        int result;
+     public int checkInt(String mess,int min, int max) {
         while (true) {
             System.out.print(mess);
-            try {
-                result = Integer.parseInt(sc.nextLine().trim());
-                if (result >= min && result <= max) {
-                    break;
-                } else {
-                    System.err.println("Out of range! please enter in range "
-                            + "[" + min + "," + max + "] ");
+            String raw = sc.nextLine().trim();
+            if (!raw.isEmpty()) {
+                try {
+                    int choice = Integer.parseInt(raw);
+                    if (choice >= min && choice <= max) {
+                        return choice;
+                    } else {
+                        System.err.println("You must enter in range [" + min + "-"
+                                + max + "], enter again: ");
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("You must enter an integer ");
                 }
-            } catch (NumberFormatException e) {
-                System.err.println("Must enter a real number ");
+            } else {
+                System.err.println("Empty! ");
             }
-
         }
-        return result;
     }
 
-    public String checkDate(String mess) {
+     public String checkDate(String mess) {
+        Scanner scanner = new Scanner(System.in);
 
-        SimpleDateFormat formatIn = new SimpleDateFormat("dd-MM-yyyy");
-        formatIn.setLenient(false);
         while (true) {
             System.out.print(mess);
-            try {
-                Date date = formatIn.parse(sc.nextLine().trim());
-                SimpleDateFormat formatOut = new SimpleDateFormat("dd-MM-yyyy");
-                String strDate = formatOut.format(date);
-                return strDate;
-
-            } catch (ParseException e) {
-                System.err.println("Please input valid date (dd-MM-yyyy) ");
+            String raw = scanner.nextLine().trim();
+            if (!raw.isEmpty()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    Date date = sdf.parse(raw);
+                    String result_str = sdf.format(date);
+                    if (result_str.equals(raw)) {
+                        return result_str;
+                    } else {
+                        System.err.println("Please enter a right date! ");
+                    }
+                } catch (ParseException e) {
+                    System.err.println("Date must in format dd-MM-yyyy! ");
+                }
+            } else {
+                System.err.println("Date can not empty! ");
             }
         }
+        
     }
+  
 
     public double checkDouble(String mess, double min, double max) {
         double result;
         while (true) {
             System.out.print(mess);
+            
             try {
                 result = Double.parseDouble(sc.nextLine().trim());
                 if (result >= min && result <= max) {
@@ -84,7 +96,7 @@ public class Validation {
 
     public double checkTime(String mess) {
         while (true) {
-            double time = checkDouble(mess, 8, 17.5);
+            double time = checkDouble(mess, 8.0, 17.5);
             if (time % 0.5 == 0) {
                 return time;
             } else {

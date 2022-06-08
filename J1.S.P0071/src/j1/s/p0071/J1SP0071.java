@@ -13,9 +13,6 @@ public class J1SP0071 {
                 case 1:
                     m.addtask();
                     break;
-//                case 2:
-//                    m.updateTask();
-//                    break;
                 case 2:
                     m.deleteTask();
                     break;

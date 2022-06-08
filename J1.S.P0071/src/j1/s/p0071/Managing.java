@@ -16,7 +16,6 @@ public class Managing {
     public int menu() {
         System.out.println("===================Task Program==================");
         System.out.println("1. Add task\n"
-                //                + "2. Update\n"
                 + "2. Delete task\n"
                 + "3. Display task\n"
                 + "4. Exit"
@@ -34,14 +33,14 @@ public class Managing {
             id = tasks.get(tasks.size() - 1).getId() + 1;
         }
         String name = val.checkInputString("Requement name:");
-        int tasktype = val.checkInt("Task type:", 1, 4);
+        int tasktype = val.checkInt("Task type(1-Code 2-Test 3-Design 4-Review):", 1, 4);
         String date = val.checkDate("Date: ");
         double from;
         double to;
         from = val.checkTime("From: ");
         while (from == 17.5) {
             System.out.println("Can't start at last hours");
-            from = val.checkTime("From");
+            from = val.checkTime("From: ");
         }
         do {
             to = val.checkTime("To: ");
@@ -56,51 +55,9 @@ public class Managing {
         System.out.println("Add Successful!");
     }
 
-//    public void updateTask() {
-//        if (tasks.isEmpty()) {
-//            System.err.println("List tasks empty!");
-//        } else {
-//            System.out.println("====================Update Task=========================");
-//            int id = val.checkInt("Requirement ID: ", 1, Integer.MAX_VALUE);
-//            if (val.isIdExists(tasks, id) == null) {
-//                System.err.println("ID Not found! ");
-//
-//            } else {
-//                String name = val.checkInputString("Requement name:");
-//                int tasktype = val.checkInt("Task type:", 1, 4);
-//                String date = val.checkDate("Date: ");
-//                double from;
-//                double to;
-//                from = val.checkTime("From: ");
-//                while (from == 17.5) {
-//                    System.err.println("Can't start at last hours");
-//                    from = val.checkTime("From: ");
-//                }
-//                do {
-//                    to = val.checkTime("To: ");
-//                    if (to < from) {
-//                        System.err.println("From can't after to");
-//                    }
-//
-//                } while (to < from);
-//                String assignee = val.checkInputString("Assignee:");
-//                String reviewer = val.checkInputString("Reviewer:");
-//
-//                Task task = val.isIdExists(tasks, id);
-//                task.setRequirementName(name);
-//                task.setTaskTypeId(tasktype);
-//                task.setDate(date);
-//                task.setPlanFrom(from);
-//                task.setPlanTo(to);
-//                task.setAssignee(assignee);
-//                task.setReviewer(reviewer);
-//            }
-//            System.out.println("Update Successful!");
-//        }
-//    }
     public void deleteTask() {
         if (tasks.isEmpty()) {
-            System.err.println("Tasks Empty! Can not delete");
+            System.err.println("List Task Empty! You must add task first");
         } else {
             System.out.println("=============Del tasks===========");
             int id = val.checkInt("Requirement ID: ", 1, Integer.MAX_VALUE);
@@ -117,7 +74,7 @@ public class Managing {
 
     public void getDataTasks() {
         if (tasks.isEmpty()) {
-            System.err.println("List Task Empty!");
+            System.err.println("List Task Empty!You must add task first");
         } else {
             System.out.println("====================Task=========================");
             System.out.format("%-5s%-15s%-15s%-15s%-10s%-10s%-10s\n",

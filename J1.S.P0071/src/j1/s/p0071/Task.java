@@ -1,6 +1,8 @@
 
 package j1.s.p0071;
 
+
+
 public class Task {
 
     private int id;
