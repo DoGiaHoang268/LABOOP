@@ -85,7 +85,10 @@ public class Management {
         System.out.println("Enter code: ");
         String code = sc.nextLine();     
         for(Doctor doctor: list){
-            if(doctor.getCode().equals(code)){
+            if(doctor.getCode().isEmpty()){
+                System.err.println("Empty cannot delete!");
+            }
+            else if(doctor.getCode().equals(code)){
                 list.remove(doctor);
                 System.out.println("Delete sucessfully!");
                 break;

@@ -44,7 +44,7 @@ public class EBank {
     }
 
     public String checkPassword(String pass) {
-        String regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*).{8,31}$";
+        String regex = "^(?=.*[0-9])(?=.*[a-zA-Z]).\\S{8,31}$";
         if (pass.isEmpty()) {
             return rb.getString("errPasswordEmpty");
         }
