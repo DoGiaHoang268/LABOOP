@@ -5,6 +5,7 @@
  */
 package Main;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -17,10 +18,11 @@ public class LoginSystem {
 
     private Locale locate;
     private ResourceBundle rb;
-    private EBank eBank = new EBank(rb);
+    Scanner scanner = new Scanner(System.in);
+    EBank eBank = new EBank(rb);
 
     public String inputAccount() {
-        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.print(rb.getString("enterAcc"));
             String acc = scanner.nextLine();
@@ -33,7 +35,7 @@ public class LoginSystem {
     }
 
     public String inputPassword() {
-        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.print(rb.getString("enterPassword"));
             String pass = scanner.nextLine();
@@ -48,12 +50,12 @@ public class LoginSystem {
     }
 
     public String inputCaptcha() {
-        Scanner scanner = new Scanner(System.in);
+
         String inputCapcha;
 
         while (true) {
             String captcha = eBank.generateCaptcha();
-            System.out.print("Captcha: " + captcha+"\t");
+            System.out.print("Captcha: " + captcha + "\t");
             System.out.print(rb.getString("enterCaptcha"));
             inputCapcha = scanner.nextLine();
             if (inputCapcha.isEmpty()) {
@@ -80,16 +82,25 @@ public class LoginSystem {
     }
 
     public void login() {
-        Scanner scanner = new Scanner(System.in);
-        EBank eBank = new EBank(rb);
 
         while (true) {
             String acc = inputAccount();
             String pass = inputPassword();
-            String c = inputCaptcha();
+            while (true) {
+                String captcha = eBank.generateCaptcha();
+                System.out.println("Captcha: " + captcha);
+                System.out.print(rb.getString("enterCaptcha"));
+                String inputCaptha = scanner.nextLine().trim();
+                if (eBank.checkCaptcha(captcha, inputCaptha) == null) {
+                    break;
+                } else {
+                    System.err.println(eBank.checkCaptcha(captcha, inputCaptha));
+                }
+
+            }
+            System.out.println(rb.getString("loginSuccess"));
             System.out.println("");
             return;
-
         }
     }
 }

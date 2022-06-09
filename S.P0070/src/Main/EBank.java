@@ -66,5 +66,14 @@ public class EBank {
         return captcha;
     }
 
-    
+    public String checkCaptcha(String captcha, String inputCaptcha) {
+        if (inputCaptcha.isEmpty()) {
+            return rb.getString("emptyCaptcha");
+        } else if (captcha.contains(inputCaptcha)) {
+            return null;
+        }
+        return rb.getString("errCaptcha");
+
+    }
+
 }
