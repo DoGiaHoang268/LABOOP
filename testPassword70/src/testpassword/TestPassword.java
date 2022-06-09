@@ -23,7 +23,7 @@ public class TestPassword {
         while (true) {
             System.out.print("enter pass: ");
             String pass = s.nextLine().trim();
-            String regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*).{8,31}$";
+            String regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*).\\S{8,31}$";
             if (pass.isEmpty()) {
                 System.err.println("Empty! try again");
                 continue;
