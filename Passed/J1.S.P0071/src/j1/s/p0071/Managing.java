@@ -44,11 +44,11 @@ public class Managing {
         }
         do {
             to = val.checkTime("To: ");
-            if (to < from) {
-                System.out.println("From can't after to");
+            if (to <= from) {
+                System.err.println("From can't less than or equal to");
             }
 
-        } while (to < from);
+        } while (to > from);
         String assignee = val.checkInputString("Assignee:");
         String reviewer = val.checkInputString("Reviewer:");
         tasks.add(new Task(id, tasktype, name, date, from, to, assignee, reviewer));
