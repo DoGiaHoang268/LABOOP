@@ -22,8 +22,10 @@ public class Main {
         DataInput d = new DataInput();
         int size = d.checkInt("input size:",0,Integer.MAX_VALUE);
         int[] array = new int[size];
-        li.rvalue(array, size);
+        
         int value=d.checkInt("Input value: ",0,Integer.MAX_VALUE);
-        li.Search(array, value);
+        li.rvalue(array, size);
+        System.out.println("Found " + value + " at index: "+li.Search(array, value));
+        
     }
 }

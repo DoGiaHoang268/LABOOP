@@ -13,28 +13,14 @@ import java.util.Random;
  */
 public class LinearSeach {
 
-    public void Search(int[] array, int value) {
-        boolean check = false;
+    public int Search(int[] array, int value) {
         for (int i = 0; i < array.length; i++) {
             if (value == array[i]) {
-                check = true;
-                break;
+                return i;
             }
         }
-        if (check == true) {
-            System.out.print("Found " + value + " at index: ");
-            for (int i = 0; i < array.length; i++) {
-                if (value == array[i]) {
-                    System.out.print(i);
-                    if (i<array.length-1) {
-                        System.out.print(", ");
-                    }
-                }
-            }
-            System.out.println("");
-        } else if (check == false) {
-            System.err.println("Not Found!");
-        }
+        return -1;
+
     }
 
     public void rvalue(int[] array, int size) {
@@ -42,7 +28,7 @@ public class LinearSeach {
         for (int i = 0; i < array.length; i++) {
             array[i] = r.nextInt(size);
             System.out.print(array[i]);
-            if (i<array.length-1) {
+            if (i < array.length - 1) {
                 System.out.print(", ");
             }
         }
