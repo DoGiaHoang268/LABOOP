@@ -59,19 +59,21 @@ public class Manager {
         System.out.print("Do you want to find(F) or Sort(S)? ");
         String choice = GetInput.getYN("[SsFf]{1}", "Please enter S for Sort, F for Find: ");
         if (choice.equalsIgnoreCase("s")) {
-            Collections.sort(listStudent);
+            listStudent.sort((s1, s2) -> s1.getStudentName().compareToIgnoreCase(s2.getStudentName()));
+           // Collections.sort(listStudent);
             displayList(listStudent);
         } else {
             System.out.print("Enter Name of Student you want to find: ");
             String nameFind = GetInput.getStringInput();
             ArrayList<Student> listFind = findByName(nameFind, listStudent);
-             listFind .sort((s1, s2) -> s1.getStudentName().compareToIgnoreCase(s2.getStudentName())); 
+            listFind.sort((s1, s2) -> s1.getStudentName().compareToIgnoreCase(s2.getStudentName()));
+            //Collections.sort(listFind);
             displayList(listFind);
         }
     }
 
     static void updateOrDelete(ArrayList<Student> listStudent) {
-        
+
         if (listStudent.isEmpty()) {
             System.err.println("List Empty");
             return;
@@ -99,16 +101,16 @@ public class Manager {
                         stu = listFind.get(lineId - 1);
                         System.out.print("Enter new ID: ");
                         String newId = GetInput.getStringInput();
-                       // String oldName1 = getNameByStudentID(id, listStudent);
+                        // String oldName1 = getNameByStudentID(id, listStudent);
                         String newName1 = getNameByStudentID(newId, listStudent);
-                        if(Validation.validateIDExist(newId, listStudent)){
-                             updateIdExist(stu, listStudent, newId, newName1);
-                             updateName(stu, listStudent, newName1);
-                        }else{                             
+                        if (Validation.validateIDExist(newId, listStudent)) {
+                            updateIdExist(stu, listStudent, newId, newName1);
+                            updateName(stu, listStudent, newName1);
+                        } else {
                             updateIdNotExist(stu, listStudent, newId);
                         }
-                        
-                       // displayList(listStudent);
+
+                        // displayList(listStudent);
                         break;
                     case 2:
 
@@ -119,14 +121,14 @@ public class Manager {
                         System.out.print("Enter new Name: ");
                         String newName = GetInput.getStringInput();
                         String idByName = getIdByName(newName, listStudent);
-                        if(!idByName.isEmpty()){
-                             updateIdExist(stu, listStudent, idByName, newName);
-                             updateName(stu, listStudent, newName);
-                        }else{                             
+                        if (!idByName.isEmpty()) {
+                            updateIdExist(stu, listStudent, idByName, newName);
+                            updateName(stu, listStudent, newName);
+                        } else {
                             updateName(stu, listStudent, newName);
                         }
-                        
-                       // displayList(listStudent);
+
+                        // displayList(listStudent);
                         break;
                     case 3:
                         displayList(listFind);
@@ -154,11 +156,11 @@ public class Manager {
             }
         } else {
             ArrayList<Student> listFind = findByID(id, listStudent);
-        if(listFind.isEmpty()){ 
-            System.err.println("List Empty");
-            return;
-        }
-        displayList(listFind);
+            if (listFind.isEmpty()) {
+                System.err.println("List Empty");
+                return;
+            }
+            displayList(listFind);
             for (int i = 0; i < listFind.size(); i++) {
                 //Student studentFind = listFind.get(i);
                 listStudent.remove(listFind.get(i));
@@ -191,7 +193,7 @@ public class Manager {
     }
 
     private static void displayList(ArrayList<Student> listStudent) {
-        if(listStudent.isEmpty()){ 
+        if (listStudent.isEmpty()) {
             System.err.println("List Empty");
             return;
         }
@@ -230,6 +232,7 @@ public class Manager {
         return list;
     }
 // display menu update
+
     private static void displayUpdateMenu() {
         System.out.println("You want to update: ");
         System.out.println("\t1. ID");
@@ -249,6 +252,7 @@ public class Manager {
         }
     }
 //get index student list
+
     private static int getIndexStudentList(Student studentFind, ArrayList<Student> listStudent) {
         for (Student student : listStudent) {
             if (student.getId().equalsIgnoreCase(studentFind.getId()) && student.getSemester().equalsIgnoreCase(studentFind.getSemester())
@@ -259,6 +263,7 @@ public class Manager {
         return 0;
     }
 //get total course
+
     private static int getTotalCourse(String courseName, ArrayList<Student> listStudent) {
         int count = 0;
         for (Student student : listStudent) {
@@ -269,12 +274,14 @@ public class Manager {
         return count;
     }
 //add report
+
     private static void addReport(int totalCourse, ArrayList<Report> reportList, String id, String courseName, ArrayList<Student> listStudent) {
         if (totalCourse != 0) {
             reportList.add(new Report(getNameByStudentID(id, listStudent), courseName, totalCourse));
         }
     }
 //update course name
+
     private static void updateCourseName(Student stu, ArrayList<Student> listStudent, String newCourse) {
         if (Validation.validateInformationExist(stu.getId(), stu.getSemester(), newCourse, listStudent)) {
             System.out.println("Duplicate Information");
@@ -284,12 +291,10 @@ public class Manager {
         }
     }
 
-
-
     private static void updateIdNotExist(Student stu, ArrayList<Student> listStudent, String newId) {
-            int index = getIndexStudentList(stu, listStudent);
-            listStudent.get(index).setId(newId);
-        
+        int index = getIndexStudentList(stu, listStudent);
+        listStudent.get(index).setId(newId);
+
     }
 
     private static void updateIdExist(Student stu, ArrayList<Student> listStudent, String newId, String newName) {
@@ -302,7 +307,6 @@ public class Manager {
         }
     }
 
-
     private static String getIdByName(String name, ArrayList<Student> listStudent) {
         for (Student student : listStudent) {
             if (student.getStudentName().equalsIgnoreCase(name)) {
@@ -314,7 +318,7 @@ public class Manager {
 
     private static void updateName(Student stu, ArrayList<Student> listStudent, String newName) {
 
-            int index = getIndexStudentList(stu, listStudent);
-            listStudent.get(index).setStudentName(newName);
-        }
+        int index = getIndexStudentList(stu, listStudent);
+        listStudent.get(index).setStudentName(newName);
+    }
 }
