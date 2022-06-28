@@ -42,13 +42,15 @@ public class Managing {
             System.out.println("Can't start at last hours");
             from = val.checkTime("From: ");
         }
-        do {
+        while (true) {
             to = val.checkTime("To: ");
             if (to <= from) {
                 System.err.println("From can't less than or equal to");
+            } else {
+                break;
             }
+        }
 
-        } while (to > from);
         String assignee = val.checkInputString("Assignee:");
         String reviewer = val.checkInputString("Reviewer:");
         tasks.add(new Task(id, tasktype, name, date, from, to, assignee, reviewer));
