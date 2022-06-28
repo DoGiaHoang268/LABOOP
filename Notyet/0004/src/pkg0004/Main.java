@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package pkg0004;
 
 import java.util.Random;
@@ -43,7 +40,7 @@ public class Main {
         System.out.print("]");
     }
     // method to find the partition position
-    int partition(int arr[], int left, int right) {
+    public int partition(int arr[], int left, int right) {
         int i = left, j = right;
         int tmp;
         int pivot = arr[(left + right) / 2];
@@ -71,7 +68,7 @@ public class Main {
         return i;
     }
 //qicksort
-    void quickSort(int arr[], int left, int right) {
+    public void quickSort(int arr[], int left, int right) {
         int index = partition(arr, left, right);
         
         if (left < index - 1) {
