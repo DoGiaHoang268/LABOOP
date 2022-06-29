@@ -46,13 +46,13 @@ public class Main {
         int pivot = arr[(left + right) / 2];
 
         while (i <= j) {
-           // Look at until all values in left array are less than pivot
-           //tìm kiếm đến khi tất cả giá trị trong mảng bên trái nhỏ hơn pivot
+           // check until all values in left array are less than pivot
+           //kiem tra đến khi tất cả giá trị trong mảng bên trái nhỏ hơn pivot
             while (arr[i] < pivot) {
                 i++;
             }
-            // Look at until all values in the right array are greater than pivot
-            // Tìm kiếm cho đến khi tất cả các giá trị trong mảng bên phải lớn hơn pivot 
+            // check until all values in the right array are greater than pivot
+            // kiem tra cho đến khi tất cả các giá trị trong mảng bên phải lớn hơn pivot 
             while (arr[j] > pivot) {
                 j--;
             }
@@ -75,7 +75,7 @@ public class Main {
             // recursive call on the left of pivot
             quickSort(arr, left, index - 1);
         }
-        if (index < right) {
+        else if (index < right) {
             // recursive call on the right of pivot
             quickSort(arr, index, right);
         }

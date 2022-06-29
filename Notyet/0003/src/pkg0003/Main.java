@@ -40,6 +40,12 @@ public class Main {
     public void insertionSort(int array[]) {
         int key;
         int i;
+        // Compare key with each element on the left of it until an element smaller than
+        // So sánh khóa với từng phần tử ở bên trái của nó cho đến khi một phần tử nhỏ hơn
+        // it is found.
+        //Nó được tìm thấy.
+        // For descending order, change key<array[i] to key>array[i].
+        // Đối với thứ tự giảm dần, đổi phím <array [i] thành key> array [i].
         for (int j = 1; j < array.length; j++) {
             key = array[j];
             i = j - 1;
@@ -47,6 +53,8 @@ public class Main {
                 array[i + 1] = array[i];
                 i--;
             }
+            // Place key at after the element just smaller than it.
+            // Đặt khóa sau phần tử nhỏ hơn nó.
             array[i + 1] = key;
         }
     }
