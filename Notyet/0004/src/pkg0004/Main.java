@@ -1,4 +1,3 @@
-
 package pkg0004;
 
 import java.util.Random;
@@ -13,7 +12,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Validation va = new Validation();
+        Validation va  = new Validation();
         int length = va.checkInt();
         int[] array = new int[length];
         for (int i = 0; i < length; i++) {
@@ -28,6 +27,7 @@ public class Main {
         m.displayArray(array);
         System.out.println("");
     }
+
     //display aray
     public void displayArray(int[] arr) {
         System.out.print("[");
@@ -39,45 +39,52 @@ public class Main {
         }
         System.out.print("]");
     }
-    // method to find the partition position
-    public int partition(int arr[], int left, int right) {
-        int i = left, j = right;
-        int tmp;
-        int pivot = arr[(left + right) / 2];
+    // A utility function to swap two elements
 
-        while (i <= j) {
-           // check until all values in left array are less than pivot
-           //kiem tra đến khi tất cả giá trị trong mảng bên trái nhỏ hơn pivot
-            while (arr[i] < pivot) {
+    static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    // method to find the partition position
+    public int partition(int arr[], int low, int high) {
+        // pivot
+        int pivot = arr[high];
+
+        // Index of smaller element and
+        // indicates the right position
+        // of pivot found so far
+        int i = (low - 1);
+
+        for (int j = low; j <= high - 1; j++) {
+
+            // If current element is smaller
+            // than the pivot
+            if (arr[j] < pivot) {
+
+                // Increment index of
+                // smaller element
                 i++;
-            }
-            // check until all values in the right array are greater than pivot
-            // kiem tra cho đến khi tất cả các giá trị trong mảng bên phải lớn hơn pivot 
-            while (arr[j] > pivot) {
-                j--;
-            }
-            //swap
-            if (i <= j) {
-                tmp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = tmp;
-                i++;
-                j--;
+                swap(arr, i, j);
             }
         }
-        return i;
+        swap(arr, i + 1, high);
+        return (i + 1);
     }
 //qicksort
-    public void quickSort(int arr[], int left, int right) {
-        int index = partition(arr, left, right);
-        
-        if (left < index - 1) {
-            // recursive call on the left of pivot
-            quickSort(arr, left, index - 1);
-        }
-        else if (index < right) {
-            // recursive call on the right of pivot
-            quickSort(arr, index, right);
+
+    public void quickSort(int arr[], int low, int high) {
+        if (low < high) {
+
+            // pi is partitioning index, arr[p]
+            // is now at right place
+            int pi = partition(arr, low, high);
+
+            // Separately sort elements before
+            // partition and after partition
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
         }
     }
 }
